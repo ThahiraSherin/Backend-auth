@@ -1,4 +1,6 @@
 🔐 User Authentication & Authorization API
+
+
 A simple user authentication system built with Node.js, Express.js, MongoDB, and JWT. It supports user registration, login, protected routes, and fetching authenticated user data.
 
 📁 Project Structure
