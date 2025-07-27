@@ -1,105 +1,164 @@
-# 🍽️ RecipeTasks
+🔐 User Authentication & Authorization API
+A simple user authentication system built with Node.js, Express.js, MongoDB, and JWT. It supports user registration, login, protected routes, and fetching authenticated user data.
 
-A complete CRUD (Create, Read, Update, Delete) **Recipe Management API** built using **Node.js**, **Express.js**, and **MongoDB (Mongoose)**. This project follows the **MVC architectural pattern** and is tested via **Postman**.
-
----
-
-## 📌 Features
-
-- ➕ Create a new recipe
-- 📄 Retrieve all recipes
-- 🔍 Retrieve a single recipe by ID
-- ✏️ Update a recipe's information
-- ❌ Delete a recipe
-- 🔁 Follows MVC pattern
-- ⚙️ RESTful API using Express.js
-- 📦 MongoDB database connection using Mongoose
-- 📬 API tested with Postman (sample collection provided)
-
----
-
-## 🧱 Tech Stack
-
-- **Node.js** – Backend runtime environment
-- **Express.js** – Web framework
-- **MongoDB** – NoSQL database
-- **Mongoose** – ODM to interact with MongoDB
-- **Postman** – For API testing
-
----
-
-## 📁 Project Structure
-
-RecipeTasks/
+📁 Project Structure
+lua
+Copy
+Edit
+project-root/
 ├── controllers/
-│ └── recipeController.js # All controller logic
+│   └── authController.js
+├── middlewares/
+│   └── auth.js
 ├── models/
-│ └── recipe.js # Mongoose schema
+│   └── User.js
 ├── routes/
-│ └── recipeRouter.js # API route definitions
-├── config/
-│ └── db.js # MongoDB connection setup
-├── app.js # Main app file
+│   └── authRoutes.js
+├── utilis/
+│   └── config.js
+├── .env
+├── app.js
 ├── package.json
 └── README.md
+🚀 Features
+User Registration with hashed password (bcrypt)
 
-Install Dependencies:
+User Login with JWT generation
+
+Protected route /me to get logged-in user info
+
+Middleware for verifying JWT token
+
+Error handling for common cases
+
+🧪 Technologies Used
+Node.js
+
+Express.js
+
+MongoDB + Mongoose
+
+bcrypt for password hashing
+
+JWT for authentication
+
+dotenv for environment configuration
+
+📦 Installation
+1.Clone the repository:
+
+bash
+Copy
+Edit
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+
+2.Install dependencies:
+
+bash
+Copy
+Edit
 npm install
 
-Connect to MongoDB:
-Create a .env file in the root and add your MongoDB URI:
-MONGO_URI=your_mongodb_connection_string
+3.Set up environment variables:
+
+Create a .env file in the root directory and add:
+
+ini
+Copy
+Edit
 PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 
-Start the Server:
+4.Start the server:
+
+bash
+Copy
+Edit
 npm start
+Server will run at http://localhost:5000
 
-📬 API Endpoints
-➕ Create a Recipe
-POST /api/recipes
+📌 API Endpoints
+➕ Register a New User
+arduino
+Copy
+Edit
+POST /api/auth/register
+Request Body:
+
+json
+Copy
+Edit
 {
-  "title": "Dosa",
-  "ingredients": ["Rice", "Urad Dal"],
-  "instructions": "Soak, grind, ferment, and cook on pan."
+  "name": "Thahira Sherin",
+  "email": "thahira@example.com",
+  "password": "password123"
 }
-📄 Get All Recipes
-GET /api/recipes
+Response:
 
-🔍 Get Recipe by ID
-GET /api/recipes/:id
-
-✏️ Update Recipe by ID
-PUT /api/recipes/:id
+json
+Copy
+Edit
 {
-  "instructions": "Updated instructions"
+  "message": "User registered successfully",
+  "user": {
+    "name": "Thahira Sherin",
+    "_id": "some_id",
+    "createdAt": "timestamp"
+  }
 }
+🔐 Login
+bash
+Copy
+Edit
+POST /api/auth/login
+Request Body:
 
-❌ Delete Recipe by ID
-DELETE /api/recipes/:id
+json
+Copy
+Edit
+{
+  "email": "thahira@example.com",
+  "password": "password123"
+}
+Response:
 
-📮 Postman Collection
-A sample Postman collection is included in the repository to test all endpoints.
+json
+Copy
+Edit
+{
+  "message": "Login Successfull",
+  "token": "jwt_token"
+}
+👤 Get Authenticated User
+vbnet
+Copy
+Edit
+GET /api/auth/me
+Headers:
 
-Import it into Postman to try all API operations easily.
+makefile
+Copy
+Edit
+Authorization: Bearer <jwt_token>
+Response:
 
-🛰️ Deployment
-The app can be deployed on Render:
+json
+Copy
+Edit
+{
+  "user": {
+    "id": "user_id",
+    "name": "Thahira Sherin",
+    "email": "thahira@example.com"
+  }
+}
+🔒 JWT Auth Middleware
+Your middleware located in middlewares/auth.js checks for a valid JWT token and attaches the user ID to the request object.
 
-Create a new Web Service
-
-Connect your GitHub repo
-
-Set environment variables:
-
-MONGO_URI
-
-PORT (optional)
-
-Deploy 🚀
-
-📌 License
-This project is open-source and free to use.
-
-🙋‍♀️ Author
+🧑‍💻 Author
 Thahira Sherin
-GitHub
+
+📃 License
+This project is open source and available under the MIT License.
